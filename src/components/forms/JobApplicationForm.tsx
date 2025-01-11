@@ -1,4 +1,11 @@
-import { Box, Button, Chip, IconButton, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { AiOutlineCloudUpload } from "react-icons/ai";
@@ -6,9 +13,17 @@ import { TbFileTypeDocx } from "react-icons/tb";
 import { TbFileTypePdf } from "react-icons/tb";
 import { BsFillRocketTakeoffFill } from "react-icons/bs";
 import { IoMdRemoveCircleOutline } from "react-icons/io";
+import toast from "react-hot-toast";
+import { RiSparkling2Fill } from "react-icons/ri";
+import { HiOutlineLightBulb } from "react-icons/hi";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+
+
+
 
 const JobApplicationForm = () => {
   const [uplaodedFile, setuplaodedFile] = useState<File[]>([]);
+
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setuplaodedFile(acceptedFiles);
     acceptedFiles.forEach((file) => {
@@ -23,19 +38,21 @@ const JobApplicationForm = () => {
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
         [".docx"],
     },
+    multiple: false,
     maxSize: 5 * 1024 * 1024,
-    maxFiles: 1,
     onDropRejected: (rejections) => {
       rejections.forEach((rejection) => {
         rejection.errors.forEach((error) => {
           if (error.code === "too-many-files") {
-            console.log("You can upload only one file at a time.");
-          } else if (error.code === "file-invalid-type") {
-            console.log(
+            toast.error("You can upload only one file at a time.");
+          }
+          if (error.code === "file-invalid-type") {
+            toast.error(
               "Unsupported file format. Please upload a PDF or DOCX file."
             );
-          } else if (error.code === "file-too-large") {
-            console.log("File size exceeds the 5MB limit.");
+          }
+          if (error.code === "file-too-large") {
+            toast.error("File size exceeds the 5MB limit.");
           }
         });
       });
@@ -101,12 +118,28 @@ const JobApplicationForm = () => {
 
           {uplaodedFile?.length > 0 &&
             uplaodedFile.map((file, index) => (
-              <Chip key={index}  color="success" sx={{width: "fit-content"}} label={<Stack direction="row" alignItems="center" spacing={2}> <Typography  fontSize="small">{file?.name}</Typography> <IoMdRemoveCircleOutline onClick={()=> setuplaodedFile([])} fontSize={16} style={{cursor:'pointer'}}/> </Stack>} />
+              <Chip
+                key={index}
+                color="success"
+                sx={{ width: "fit-content" }}
+                size="small"
+                label={
+                  <Stack direction="row" alignItems="center" spacing={2}>
+                    {" "}
+                    <Typography fontSize="small">{file?.name}</Typography>{" "}
+                    <IoMdRemoveCircleOutline
+                      onClick={() => setuplaodedFile([])}
+                      fontSize={16}
+                      style={{ cursor: "pointer" }}
+                    />{" "}
+                  </Stack>
+                }
+              />
             ))}
 
           <Typography
             className="content"
-            sx={{ mt: 3, mb:1 }}
+            sx={{ mt: 3, mb: 1 }}
             fontSize="small"
             fontWeight="bold"
           >

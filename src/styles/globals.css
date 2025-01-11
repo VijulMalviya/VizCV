@@ -47,4 +47,9 @@ a {
 
 .MuiButton-root {
   text-transform: capitalize !important;
+  box-shadow: none !important;
+}
+
+.MuiButton-root:hover {
+  box-shadow: none !important;
 }
