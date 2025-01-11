@@ -1,24 +1,25 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import React from "react";
 import ThemeToggleButton from "../ThemeToggleButton";
-import TagLineToast from "../Tagline-toast";
 
 const Header = () => {
   return (
-    <Container maxWidth="lg" fixed>
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ p: 2 }}
+    <Container>
+      <Box
+        sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+            p: 1.5,
+          }}
       >
-        <Typography>
-          <strong> SnapCV</strong>
-        </Typography>
+        <Typography variant="h5" fontWeight="bold"  sx={{
+            background: "linear-gradient(to right, #0A01FF 0%, #CF4EB9 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}>SnapCV</Typography>
         <ThemeToggleButton />
-      </Stack>
-      <Box sx={{ mt: 2 }}>
-        <TagLineToast />
       </Box>
     </Container>
   );

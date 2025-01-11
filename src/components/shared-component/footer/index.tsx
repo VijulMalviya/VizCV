@@ -1,47 +1,46 @@
-import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Container,  Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { FaGithub } from "react-icons/fa";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <Container>
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems:'center',
+          alignItems: { xs: "flex-start", md: "center" },
+          flexDirection: { xs: "column", md: "row" },
           width: "100%",
           p: 1.5,
           borderTop: "1px solid",
           borderColor: "#e2e2e2",
         }}
       >
-        <Stack direction="row" spacing={2}>
-          <Typography color="inherit" fontSize="small">
-            {"Copyright © "}
-            <Link color="text.secondary" href="/">
-              SnapCV
-            </Link>
-            &nbsp;
-            {new Date().getFullYear()}
+        <Typography color="inherit" fontSize="small" className="content">
+          {"Copyright © "}
+          <Link color="text.secondary" href="/">
+            SnapCV
+          </Link>
+          &nbsp;{currentYear}
+        </Typography>
+
+        <Stack direction="row" spacing={2} alignItems="center" mt={{ xs: 1, md: 0 }}>
+          <Link color="text.secondary" href="/" passHref>
+            <Typography fontSize="small" className="content">
+              Help Center
+            </Typography>
+          </Link>
+          <Typography className="content" fontSize="small">
+            |
           </Typography>
-        </Stack>
-        <Stack
-          direction="row"
-          spacing={1}
-          useFlexGap
-          sx={{ justifyContent: "left" }}
-        >
-          <IconButton
-            color="inherit"
-            size="small"
-            href=""
-            aria-label="GitHub"
-            sx={{ alignSelf: "center" }}
-          >
-            <FaGithub />
-          </IconButton>
+          <Link color="text.secondary" href="/" passHref>
+            <Typography fontSize="small" className="content">
+              Term & Privacy
+            </Typography>
+          </Link>
         </Stack>
       </Box>
     </Container>

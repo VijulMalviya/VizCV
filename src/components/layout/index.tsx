@@ -5,13 +5,13 @@ import Footer from "../shared-component/footer";
 
 const Layout: React.FC<ILayoutProps> = ({ children }) => {
   return (
-    <>
-      <Container>
-        <Header />
-        <Box sx={{minHeight:`calc(100vh - 161px)`}}>{children}</Box>
-        <Footer />
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      <Header />
+      <Container component="main" sx={{ flex: 1 }}>
+        {children}
       </Container>
-    </>
+      <Footer />
+    </Box>
   );
 };
 
