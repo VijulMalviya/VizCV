@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import { RiSparkling2Fill } from "react-icons/ri";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { TbFileTypeTxt } from "react-icons/tb";
+
 
 const JobApplicationForm = () => {
   const [uplaodedFile, setuplaodedFile] = useState<File[]>([]);
@@ -56,6 +58,7 @@ const JobApplicationForm = () => {
       "application/pdf": [".pdf"],
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
         [".docx"],
+        "text/plain": [".txt"],
     },
     multiple: false,
     maxSize: 5 * 1024 * 1024,
@@ -128,9 +131,10 @@ const JobApplicationForm = () => {
               >
                 <TbFileTypeDocx size={30} />
                 <TbFileTypePdf size={30} />
+                <TbFileTypeTxt size={30} />
               </Stack>
               <Typography className="content" fontSize="small">
-                Supported formats: <strong>.docx</strong>, <strong>.pdf</strong>
+                Supported formats: <strong>.docx</strong>, <strong>.pdf</strong> & <strong>.txt</strong>
               </Typography>
             </Stack>
           </Box>
