@@ -5,8 +5,8 @@ import { Typography, Stack, Container } from "@mui/material";
 const Home = () => {
   return (
     <Layout>
-      <Stack mt={10} alignItems="center">
-        <Typography variant="h4" textAlign="center">
+      <Stack mt={20} alignItems="center">
+        <Typography  sx={{fontSize: { xs: '1.5rem', md: '2rem' }}}  textAlign="center">
           Transform Your CV into Your
         </Typography>
         <Typography
@@ -32,7 +32,7 @@ const Home = () => {
           dream job. AI-driven tools and expert tips, all in one app.
         </Typography>
       </Stack>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{mt:5}}>
         <JobApplicationForm />
       </Container>
     </Layout>

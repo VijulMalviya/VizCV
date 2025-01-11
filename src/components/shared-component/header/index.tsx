@@ -4,14 +4,21 @@ import ThemeToggleButton from "../ThemeToggleButton";
 
 const Header = () => {
   return (
+    <Box  sx={{
+      position: "fixed",     
+      top: 0,                 
+      left: 0,               
+      width: "100%",   
+      backdropFilter:'blur(24px)',      
+      zIndex: 9999,               
+    }}>
     <Container>
       <Box
-        sx={{
+        sx={{     
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-          p: 1.5,
+          alignItems: "center",        
+          py: 2,
         }}
       >
         <Typography
@@ -28,6 +35,8 @@ const Header = () => {
         <ThemeToggleButton />
       </Box>
     </Container>
+
+    </Box>
   );
 };
 

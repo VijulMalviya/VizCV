@@ -17,9 +17,6 @@ const JobApplicationForm = () => {
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setuplaodedFile(acceptedFiles);
-    acceptedFiles.forEach((file) => {
-      console.log("File uploaded:", file.name);
-    });
   }, []);
 
   const handleOptimizeWithAI = () => {
@@ -159,7 +156,7 @@ const JobApplicationForm = () => {
               />
             ))}
 
-          <Stack direction="row" justifyContent="flex-end" spacing={1}>
+          <Stack direction={{xs:'column', sm:'row'}} justifyContent="flex-end" spacing={1}>
             <Button
               variant="outlined"
               size="small"
@@ -222,7 +219,7 @@ const JobApplicationForm = () => {
               sx={{
                 mt: 3,
                 p: 2,
-                width: "50%",
+                width:{ xs:"100%", sm:'80%',md:"50%"},
                 background:
                   "linear-gradient(to right, #0A01FF 0%, #CF4EB9 100%)",
               }}

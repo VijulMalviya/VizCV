@@ -14,9 +14,8 @@ const Footer = () => {
           alignItems: { xs: "flex-start", md: "center" },
           flexDirection: { xs: "column", md: "row" },
           width: "100%",
-          p: 1.5,
-          borderTop: "1px solid",
-          borderColor: "#e2e2e2",
+          py: 2,
+       
         }}
       >
         <Typography color="inherit" fontSize="small" className="content">
