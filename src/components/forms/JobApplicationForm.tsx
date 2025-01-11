@@ -13,6 +13,7 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const JobApplicationForm = () => {
   const [uplaodedFile, setuplaodedFile] = useState<File[]>([]);
+  const [jobDescription, setJobDescription] = useState<string | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setuplaodedFile(acceptedFiles);
@@ -20,6 +21,37 @@ const JobApplicationForm = () => {
       console.log("File uploaded:", file.name);
     });
   }, []);
+
+  const handleOptimizeWithAI = () => {
+    if (!jobDescription && uplaodedFile.length === 0) {
+      toast.error(
+        "Please add a job description and upload at least one Document (PDF or DOCX)."
+      );
+      return;
+    }
+
+    if (!jobDescription) {
+      toast.error("Please add a job description.");
+      return;
+    }
+
+    if (uplaodedFile.length === 0) {
+      toast.error("Please upload at least one Document (PDF or DOCX).");
+      return;
+    }
+  };
+  const handleResumeSuggestion = () => {
+    if (uplaodedFile.length === 0) {
+      toast.error("Please upload at least one Document (PDF or DOCX).");
+      return;
+    }
+  };
+  const handleATSScore = () => {
+    if (uplaodedFile.length === 0) {
+      toast.error("Please upload at least one Document (PDF or DOCX).");
+      return;
+    }
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -111,7 +143,7 @@ const JobApplicationForm = () => {
               <Chip
                 key={index}
                 color="success"
-                sx={{ width: "fit-content" }}
+                sx={{ width: "fit-content", mb: 2 }}
                 size="small"
                 label={
                   <Stack direction="row" alignItems="center" spacing={2}>
@@ -127,11 +159,12 @@ const JobApplicationForm = () => {
               />
             ))}
 
-          <Stack direction="row" justifyContent="flex-end" spacing={1} mt={2}>
+          <Stack direction="row" justifyContent="flex-end" spacing={1}>
             <Button
               variant="outlined"
               size="small"
               startIcon={<HiOutlineLightBulb />}
+              onClick={handleResumeSuggestion}
             >
               Review Resume Suggestions
             </Button>
@@ -139,6 +172,7 @@ const JobApplicationForm = () => {
               variant="contained"
               size="small"
               startIcon={<IoMdCheckmarkCircleOutline />}
+              onClick={handleATSScore}
             >
               Analyze ATS Compatibility
             </Button>
@@ -150,7 +184,7 @@ const JobApplicationForm = () => {
             sx={{ mt: 3 }}
           >
             <RiSparkling2Fill color="#FFEB3B" fontSize={20} />
-            <Typography className="content" fontSize="small">
+            <Typography className="content">
               <strong>
                 {" "}
                 Want to Optimize Your Resume with AI (Job Description Based)?{" "}
@@ -159,11 +193,11 @@ const JobApplicationForm = () => {
           </Stack>
           <Typography
             className="content"
-            sx={{ mt: 3, mb: 1 }}
+            sx={{ mt: 2, mb: 1 }}
             fontSize="small"
             fontWeight="bold"
           >
-           Add Job Description
+            Add Job Description
           </Typography>
           <TextField
             hiddenLabel
@@ -175,6 +209,11 @@ const JobApplicationForm = () => {
             fullWidth
             rows={4}
             className="custom-textfield content"
+            value={jobDescription}
+            onChange={(event) => {
+              const value = event.target.value;
+              setJobDescription(value);
+            }}
           />
           <Stack direction="row" justifyContent="center">
             <Button
@@ -187,6 +226,7 @@ const JobApplicationForm = () => {
                 background:
                   "linear-gradient(to right, #0A01FF 0%, #CF4EB9 100%)",
               }}
+              onClick={handleOptimizeWithAI}
             >
               Optimize with AI &nbsp; <BsFillRocketTakeoffFill />
             </Button>
