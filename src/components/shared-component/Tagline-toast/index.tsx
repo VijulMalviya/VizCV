@@ -6,15 +6,7 @@ import { Typography } from "@mui/material";
 
 const TagLineToast = () => {
   return (
-    <AppBar
-      position="fixed"
-      enableColorOnDark
-      sx={{
-        top: '12%',
-        boxShadow: 0,
-        bgcolor: "transparent",
-      }}
-    >
+    
       <Container maxWidth="xs">
         <Box
           sx={{
@@ -23,14 +15,22 @@ const TagLineToast = () => {
             textAlign: "center",
             borderRadius: 5,
             backdropFilter: "blur(24px)",
+            transition: "border-color 0.3s ease-in-out",
+            "&:hover": {
+              borderColor:' rgba(0, 122, 255, 0.8)',
+              boxShadow:2
+            },
+
           }}
         >
-          <Typography fontSize="12px">
+
+            
+          <Typography fontSize="12px" color="inherit">
             <strong> From Good to Hired: Optimize Your Resume Today</strong>
           </Typography>
-        </Box>
+            </Box>
       </Container>
-    </AppBar>
+  
   );
 };
 

@@ -1,13 +1,23 @@
 :root[data-theme="light"] {
   --background: #ffffff;
   --foreground: #171717;
+  --background-gradient: radial-gradient(
+    ellipse 80% 50% at 50% -20%,
+    hsl(0, 5%, 87%),
+    transparent
+  );
+  
 }
 
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
+  --background-gradient: radial-gradient(
+    ellipse 80% 50% at 50% -20%,
+    hsl(210, 100%, 16%),
+    transparent
+  );
 }
-
 
 
 html,
@@ -21,7 +31,9 @@ body {
 body {
   color: var(--foreground);
   background-color: var(--background);
-  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 16%), transparent);
+  background-image: var(--background-gradient);
+  background-repeat: no-repeat;
+  background-size: cover;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -31,6 +43,7 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  color: var(--foreground);
 }
 
 a {
