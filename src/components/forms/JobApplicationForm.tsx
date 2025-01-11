@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Chip,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Chip, Stack, TextField, Typography } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { AiOutlineCloudUpload } from "react-icons/ai";
@@ -17,9 +10,6 @@ import toast from "react-hot-toast";
 import { RiSparkling2Fill } from "react-icons/ri";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
-
-
-
 
 const JobApplicationForm = () => {
   const [uplaodedFile, setuplaodedFile] = useState<File[]>([]);
@@ -137,13 +127,43 @@ const JobApplicationForm = () => {
               />
             ))}
 
+          <Stack direction="row" justifyContent="flex-end" spacing={1} mt={2}>
+            <Button
+              variant="outlined"
+              size="small"
+              startIcon={<HiOutlineLightBulb />}
+            >
+              Review Resume Suggestions
+            </Button>
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<IoMdCheckmarkCircleOutline />}
+            >
+              Analyze ATS Compatibility
+            </Button>
+          </Stack>
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            spacing={1}
+            sx={{ mt: 3 }}
+          >
+            <RiSparkling2Fill color="#FFEB3B" fontSize={20} />
+            <Typography className="content" fontSize="small">
+              <strong>
+                {" "}
+                Want to Optimize Your Resume with AI (Job Description Based)?{" "}
+              </strong>
+            </Typography>
+          </Stack>
           <Typography
             className="content"
             sx={{ mt: 3, mb: 1 }}
             fontSize="small"
             fontWeight="bold"
           >
-            Job Description
+           Add Job Description
           </Typography>
           <TextField
             hiddenLabel
