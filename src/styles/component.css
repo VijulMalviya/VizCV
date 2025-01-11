@@ -16,8 +16,11 @@
 }
 
 .uploadFilesContainer {
-    border: 1px solid var(--formborder);
-    
+    border: 1px solid var(--formborder);   
+}
+
+.highlight-cards {
+    border: 1px solid var(--formborder); 
 }
 
 .custom-textfield .MuiOutlinedInput-root {

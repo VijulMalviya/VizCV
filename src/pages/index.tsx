@@ -1,6 +1,7 @@
 import JobApplicationForm from "@/components/forms/JobApplicationForm";
 import Layout from "@/components/layout";
-import { Typography, Stack, Container } from "@mui/material";
+import Highlights from "@/components/sections/highlight/Highlights";
+import { Typography, Stack, Container, Box } from "@mui/material";
 
 const Home = () => {
   return (
@@ -32,9 +33,12 @@ const Home = () => {
           dream job. AI-driven tools and expert tips, all in one app.
         </Typography>
       </Stack>
-      <Container maxWidth="lg" sx={{mt:5}}>
+      <Box sx={{mt:5}}>
         <JobApplicationForm />
-      </Container>
+      </Box>
+      <Box sx={{mt:20}}>
+        <Highlights />
+      </Box>
     </Layout>
   );
 };

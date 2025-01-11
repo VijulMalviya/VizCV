@@ -17,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/layout/index.tsx", "src/context/ThemeProvider.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/layout/index.tsx", "src/context/ThemeProvider.js", "src/constant.js", "src/constant.js"],
   "exclude": ["node_modules"]
 }
