@@ -3,23 +3,17 @@
 :root[data-theme="light"] {
   --background: #ffffff;
   --foreground: #171717;
-  --contentColor: #47536b; 
-  --background-gradient: radial-gradient(
-    ellipse 80% 50% at 50% -20%,
-    hsl(0, 5%, 87%),
-    transparent
-  );
+  --background-gradient: radial-gradient(ellipse 80% 50% at 50% -20%,
+      hsl(0, 5%, 87%),
+      transparent);
 }
 
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
-  --contentColor: #94a0b8;  /* Fixed color value */
-  --background-gradient: radial-gradient(
-    ellipse 80% 50% at 50% -20%,
-    hsl(210, 100%, 16%),
-    transparent
-  );
+  --background-gradient: radial-gradient(ellipse 80% 50% at 50% -20%,
+      hsl(210, 100%, 16%),
+      transparent);
 }
 
 html,
@@ -51,10 +45,6 @@ a {
   text-decoration: none;
 }
 
-.content {
-  color: var(--contentColor); 
-}
-
 .MuiButton-root {
-  text-transform: capitalize !important; 
+  text-transform: capitalize !important;
 }

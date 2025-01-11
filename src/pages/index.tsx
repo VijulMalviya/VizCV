@@ -1,6 +1,6 @@
+import JobApplicationForm from "@/components/forms/JobApplicationForm";
 import Layout from "@/components/layout";
-import { Typography, Stack } from "@mui/material";
-
+import { Typography, Stack, Container } from "@mui/material";
 
 const Home = () => {
   return (
@@ -26,13 +26,17 @@ const Home = () => {
           variant="body2"
           textAlign="center"
           className="content"
-          sx={{ mt: 4, maxWidth: 800 }}  
+          sx={{ mt: 4, maxWidth: 800 }}
         >
-          SnapCV helps you craft ATS-friendly CV, score higher, and land your dream job. AI-driven tools and expert tips, all in one app.
+          SnapCV helps you craft ATS-friendly CV, score higher, and land your
+          dream job. AI-driven tools and expert tips, all in one app.
         </Typography>
       </Stack>
+      <Container maxWidth="lg">
+        <JobApplicationForm />
+      </Container>
     </Layout>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

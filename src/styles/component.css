@@ -1,0 +1,49 @@
+:root[data-theme="light"] {
+    --contentColor: #47536b;
+    --formbackground: #F6F6F8;
+    --formborder: #dadee74c;
+
+}
+
+:root {
+    --contentColor: #94a0b8;
+    --formbackground: #171717cc;
+    --formborder: #313a4e99;
+}
+
+.content {
+    color: var(--contentColor);
+}
+
+.uploadFilesContainer {
+    border: 1px solid var(--formborder);
+    
+}
+
+.custom-textfield .MuiOutlinedInput-root {
+    color: var(--contentColor);
+    transition: all 0.3s ease-in-out; 
+  }
+
+.custom-textfield .MuiOutlinedInput-root fieldset {
+    border: 1px solid var(--formborder);
+    transition: border-color 0.3s ease-in-out;
+   
+}
+
+.custom-textfield .MuiOutlinedInput-root:hover fieldset {
+    border: 1px solid var(--contentColor);
+}
+
+.custom-textfield .MuiOutlinedInput-root.Mui-focused fieldset {
+    border: 1px solid var(--contentColor);
+}
+
+.custom-textfield .MuiInputLabel-root {
+    color: var(--contentColor);
+    
+}
+
+.custom-textfield .MuiInputLabel-root.Mui-focused {
+    color: var(--contentColor);
+}
