@@ -1,19 +1,8 @@
 import { FC } from "react";
 import { Grid2 } from "@mui/material";
 import { Box, Stack, Typography } from "@mui/material";
+import { HighlightCardProps } from "@/@types";
 
-
-interface Feature {
-  title: string;
-  description: string;
-  icon: React.ReactNode; 
-}
-
-
-interface HighlightCardProps {
-  feature: Feature;
-  
-}
 
 const HighlightCard: FC<HighlightCardProps> = ({ feature }) => {
   return (

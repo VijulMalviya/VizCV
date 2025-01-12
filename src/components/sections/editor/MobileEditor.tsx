@@ -7,7 +7,7 @@ import { GoAlertFill } from "react-icons/go";
 
 
 const MobileEditor = () => {
-  const [exportLoading, setExportLoading] = useState({
+  const [exportLoading] = useState({
     pdf: false,
     docx: false,
   });

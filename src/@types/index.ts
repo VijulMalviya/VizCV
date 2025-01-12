@@ -8,6 +8,7 @@ export interface RootState {
   theme: {
     mode: "light" | "dark";
   };
+
 }
 
 export interface ThemeState {
@@ -30,3 +31,12 @@ export interface ATSScoreProps {
   ATSScore: number;
 }
 
+interface Feature {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+}
+
+export interface HighlightCardProps {
+  feature: Feature;
+}

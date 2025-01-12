@@ -1,5 +1,5 @@
 import { features } from "@/constant";
-import { Box, Card, Grid2, Stack, Typography } from "@mui/material";
+import { Grid2, Stack, Typography } from "@mui/material";
 import React from "react";
 import HightLightCard from "./HightLightCard";
 

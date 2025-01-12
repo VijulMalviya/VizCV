@@ -93,7 +93,7 @@ const JobApplicationForm = () => {
     },
   });
 
-  const handleChipClick = (jobId:any) => {
+  const handleChipClick = (jobId:string) => {
     const job = jobDescriptions.find((job) => job.id === jobId);
     if (job) {
       const keyResponsibilities = job.sections.find(
@@ -202,7 +202,7 @@ const JobApplicationForm = () => {
             rows={4}
             className="custom-textfield content"
             value={jobDescription}
-            onChange={(event) => {
+            onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
               const value = event.target.value;
               setJobDescription(value);
             }}

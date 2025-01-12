@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import {
-  Box,
-  CircularProgress,
-  Typography,
-} from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { dummyResume } from "@/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { setCvContent } from "@/redux/slice/resumeParseContentSlice";
-
 
 const TinyMCEEditor = () => {
   const [editorLoaded, setEditorLoaded] = useState(false);
@@ -46,7 +41,7 @@ const TinyMCEEditor = () => {
         <Editor
           id="tinymce-editor"
           apiKey={process.env.NEXT_PUBLIC_TINYMCE_EDITOR_LICENSE_KEY}
-          onInit={(evt, editor) => {
+          onInit={(editor: any) => {
             const initialEditorContent = editor.getContent({
               format: "html",
             });

@@ -11,7 +11,7 @@ import { exportToDOCX, exportToPDF } from "@/utils";
 const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const [exportLoading, setExportLoading] = useState({
+  const [exportLoading] = useState({
     pdf: false,
     docx: false,
   });
