@@ -11,10 +11,13 @@ import { RiSparkling2Fill } from "react-icons/ri";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { TbFileTypeTxt } from "react-icons/tb";
+import { jobDescriptions } from "@/constant";
+import { useRouter } from "next/router";
 
 const JobApplicationForm = () => {
   const [uploadedFile, setUploadedFile] = useState<File[]>([]);
   const [jobDescription, setJobDescription] = useState<string | null>(null);
+  const router = useRouter()
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setUploadedFile(acceptedFiles);
@@ -23,7 +26,7 @@ const JobApplicationForm = () => {
   const validateInputs = () => {
     if (!jobDescription && uploadedFile.length === 0) {
       toast.error(
-        "Please add a job description and upload at least one Document (PDF or DOCX)."
+        "Please add a job description and upload at least one Document (PDF, DOCX or Txt)."
       );
       return false;
     }
@@ -34,7 +37,7 @@ const JobApplicationForm = () => {
     }
   
     if (uploadedFile.length === 0) {
-      toast.error("Please upload at least one Document (PDF or DOCX).");
+      toast.error("Please upload at least one Document (PDF, DOCX or Txt).");
       return false;
     }
   
@@ -44,22 +47,14 @@ const JobApplicationForm = () => {
   const handleOptimizeWithAI = () => {
     if (!validateInputs()) return;
   
-    // API call or logic specific to "Optimize With AI"
     console.log("Optimizing resume with AI...");
-  };
-  
-  const handleResumeSuggestion = () => {
-    if (!validateInputs()) return;
-  
-    // API call or logic specific to "Resume Suggestion"
-    console.log("Fetching resume suggestions...");
   };
   
   const handleATSScore = () => {
     if (!validateInputs()) return;
-  
-    // API call or logic specific to "ATS Score"
     console.log("Calculating ATS score...");
+
+    router.push('/ats-and-feedback-result')
   };
   
 
@@ -91,6 +86,17 @@ const JobApplicationForm = () => {
       });
     },
   });
+
+  const handleChipClick = (jobId:any) => {
+    const job = jobDescriptions.find((job) => job.id === jobId);
+    if (job) {
+      const keyResponsibilities = job.sections.find(
+        (section) => section.heading === "Key Responsibilities"
+      );
+      setJobDescription(keyResponsibilities?.description || "No description available.");
+    }
+  };
+
 
   return (
     <>
@@ -195,27 +201,44 @@ const JobApplicationForm = () => {
               setJobDescription(value);
             }}
           />
+          <Stack direction="column" mt={1}>
+          <Typography
+            className="content"
+            sx={{ mb: 1 }}
+            fontSize="small"
+            
+          >
+            Job description Suggests  <i>(Click on title to import job description)</i>
+          </Typography>
+          <Stack direction={{md:"row",xs:"column"}} spacing={{md:1,xs:0.5}}>
+
+          {jobDescriptions.map((job) => (
+          <Chip
+            key={job.id}
+            label={<Typography fontSize="12px">{job.jobTitle} </Typography>}
+            onClick={() => handleChipClick(job.id)}
+            clickable
+            sx={{width:'fit-content'}}
+            color="warning"
+            variant="outlined"
+            size="small"
+            
+          />
+        ))}
+          </Stack>
+          </Stack>
           <Stack
             direction={{ xs: "column", sm: "row" }}
             justifyContent="flex-end"
             spacing={1}
-            sx={{ mt: 2 }}
+            sx={{ mt: 3 }}
           >
             <Button
               variant="contained"
-              size="small"
-              startIcon={<HiOutlineLightBulb />}
-              onClick={handleResumeSuggestion}
-            >
-              Review Resume/CV Suggestions
-            </Button>
-            <Button
-              variant="contained"
-              size="small"
               startIcon={<IoMdCheckmarkCircleOutline />}
               onClick={handleATSScore}
             >
-              Analyze your ATS score
+              Analyze ATS & Review Suggestions
             </Button>
           </Stack>
           <Stack
