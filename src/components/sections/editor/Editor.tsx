@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import {
-  Alert,
   Box,
-  Button,
   CircularProgress,
-  Stack,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 import { dummyResume } from "@/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { setCvContent } from "@/redux/slice/resumeParseContentSlice";
-import MobileEditor from "./MobileEditor";
+
 
 const TinyMCEEditor = () => {
   const [editorLoaded, setEditorLoaded] = useState(false);

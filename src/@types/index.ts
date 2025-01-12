@@ -29,3 +29,4 @@ export interface ImprovementSectionProps {
 export interface ATSScoreProps {
   ATSScore: number;
 }
+
