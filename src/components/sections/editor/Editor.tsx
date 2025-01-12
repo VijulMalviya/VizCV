@@ -13,12 +13,10 @@ const TinyMCEEditor = () => {
           const initialEditorContent = editor.getContent({ format: "html" });
           console.log(initialEditorContent, "initialEditorContent");
 
-          editor.on('blur', function () {
-            const updatedContent = editor.getContent({ format: 'html' });
+          editor.on("blur", function () {
+            const updatedContent = editor.getContent({ format: "html" });
             console.log(updatedContent, "updatedContent (on blur)");
           });
-
-
         }}
         init={{
           element_format: "html",
@@ -53,9 +51,7 @@ const TinyMCEEditor = () => {
         }}
         className="content"
       >
-        <small>
-          SnapCode can make mistakes.
-        </small>
+        <small>SnapCode can make mistakes.</small>
       </Typography>
     </>
   );
