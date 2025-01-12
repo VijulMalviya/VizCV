@@ -1,10 +1,7 @@
+import { ATSScoreProps } from "@/@types";
 import React from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-
-interface ATSScoreProps {
-  ATSScore: number;
-}
 
 const ProgressCircle: React.FC<ATSScoreProps> = ({ ATSScore }) => {
   const getColor = (ATSScore: number) => {

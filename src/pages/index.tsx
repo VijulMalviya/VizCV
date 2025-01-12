@@ -1,7 +1,7 @@
 import JobApplicationForm from "@/components/forms/JobApplicationForm";
 import Layout from "@/components/layout";
 import Highlights from "@/components/sections/highlight/Highlights";
-import { Typography, Stack, Container, Box } from "@mui/material";
+import { Typography, Stack, Box } from "@mui/material";
 
 const Home = () => {
   return (

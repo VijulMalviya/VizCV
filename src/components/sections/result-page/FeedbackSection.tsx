@@ -1,11 +1,8 @@
 import React from "react";
 import { Stack, Typography, Box } from "@mui/material";
 import { GoDotFill } from "react-icons/go";
+import { FeedbackSectionProps } from "@/@types";
 
-interface FeedbackSectionProps {
-  title: string;
-  points: Array<string>;
-}
 
 const FeedbackSection: React.FC<FeedbackSectionProps> = ({ title, points }) => {
   return (

@@ -8,7 +8,6 @@ import { BsFillRocketTakeoffFill } from "react-icons/bs";
 import { IoMdRemoveCircleOutline } from "react-icons/io";
 import toast from "react-hot-toast";
 import { RiSparkling2Fill } from "react-icons/ri";
-import { HiOutlineLightBulb } from "react-icons/hi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { TbFileTypeTxt } from "react-icons/tb";
 import { jobDescriptions } from "@/constant";

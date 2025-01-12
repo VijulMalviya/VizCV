@@ -17,7 +17,7 @@ const ATSAndFeedbackResult = () => {
 
   return (
     <Layout>
-      <Container maxWidth="md">
+      <Container maxWidth="md" sx={{mt:5}}>
         <Stack direction="column" alignItems="center" spacing={2}>
           <ProgressCircle ATSScore={ATS_Score?.score} />
           <Typography className="content" textAlign="center" fontSize="small">

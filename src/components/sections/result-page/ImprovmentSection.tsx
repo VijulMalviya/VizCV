@@ -1,13 +1,7 @@
 import React from "react";
 import { Stack, Typography, Box, Alert } from "@mui/material";
 import { GoDotFill } from "react-icons/go";
-
-interface ImprovementSectionProps {
-  title: string;
-  points: Array<{ description: string }>;
-  color: string;
-  severity: "error" | "success";
-}
+import { ImprovementSectionProps } from "@/@types";
 
 const ImprovementSection: React.FC<ImprovementSectionProps> = ({
   title,

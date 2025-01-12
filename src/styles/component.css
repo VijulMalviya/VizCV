@@ -2,6 +2,8 @@
     --contentColor: #47536b;
     --formbackground: #F6F6F8;
     --formborder: #dadee74c;
+    --background: #ffffff;
+    --foreground: #171717;
 
 }
 
@@ -9,6 +11,8 @@
     --contentColor: #94a0b8;
     --formbackground: #171717cc;
     --formborder: #313a4e99;
+    --background: #0a0a0a;
+    --foreground: #ededed;
 }
 
 .content {
@@ -16,27 +20,33 @@
 }
 
 .uploadFilesContainer {
-    border: 1px solid var(--formborder);   
+    border: 1px solid var(--formborder);
 }
 
 .result-content-box {
-    border: 1px solid var(--formborder);   
-    background-color: var(--formbackground);
-    color: var(--contentColor);
+    border: 1px solid var(--formborder) !important;
+    background-color: var(--formbackground) !important;
+    color: var(--contentColor) !important;
+}
+
+.chip {
+    border: 1px solid var(--foreground) !important;
+    background-color: transparent !important;
+    color: var(--foreground) !important;
 }
 
 .highlight-cards {
-    border: 1px solid var(--formborder); 
+    border: 1px solid var(--formborder);
 }
 
 .custom-textfield .MuiOutlinedInput-root {
     color: var(--contentColor);
-    transition: all 0.3s ease-in-out; 
-  }
+    transition: all 0.3s ease-in-out;
+}
 
 .custom-textfield .MuiOutlinedInput-root fieldset {
     border: 1px solid var(--formborder);
-    transition: border-color 0.3s ease-in-out; 
+    transition: border-color 0.3s ease-in-out;
 }
 
 .custom-textfield .MuiOutlinedInput-root:hover fieldset {
