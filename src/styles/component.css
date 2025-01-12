@@ -19,6 +19,12 @@
     border: 1px solid var(--formborder);   
 }
 
+.result-content-box {
+    border: 1px solid var(--formborder);   
+    background-color: var(--formbackground);
+    color: var(--contentColor);
+}
+
 .highlight-cards {
     border: 1px solid var(--formborder); 
 }
@@ -30,8 +36,7 @@
 
 .custom-textfield .MuiOutlinedInput-root fieldset {
     border: 1px solid var(--formborder);
-    transition: border-color 0.3s ease-in-out;
-   
+    transition: border-color 0.3s ease-in-out; 
 }
 
 .custom-textfield .MuiOutlinedInput-root:hover fieldset {
@@ -44,7 +49,6 @@
 
 .custom-textfield .MuiInputLabel-root {
     color: var(--contentColor);
-    
 }
 
 .custom-textfield .MuiInputLabel-root.Mui-focused {

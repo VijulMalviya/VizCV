@@ -5,7 +5,7 @@ import Footer from "../shared-component/footer";
 
 const Layout: React.FC<ILayoutProps> = ({ children }) => {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh", pt:15 }}>
       <Header />
       <Container component="main" sx={{ flex: 1 }}>
         {children}

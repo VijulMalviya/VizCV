@@ -6,7 +6,7 @@ import { Typography, Stack, Container, Box } from "@mui/material";
 const Home = () => {
   return (
     <Layout>
-      <Stack mt={20} alignItems="center">
+      <Stack mt={5} alignItems="center">
         <Typography  sx={{fontSize: { xs: '1.5rem', md: '2rem' }}}  textAlign="center">
           Transform Your CV into Your
         </Typography>
