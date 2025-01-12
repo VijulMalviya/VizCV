@@ -12,45 +12,56 @@ import { HiOutlineLightBulb } from "react-icons/hi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { TbFileTypeTxt } from "react-icons/tb";
 
-
 const JobApplicationForm = () => {
-  const [uplaodedFile, setuplaodedFile] = useState<File[]>([]);
+  const [uploadedFile, setUploadedFile] = useState<File[]>([]);
   const [jobDescription, setJobDescription] = useState<string | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    setuplaodedFile(acceptedFiles);
+    setUploadedFile(acceptedFiles);
   }, []);
 
-  const handleOptimizeWithAI = () => {
-    if (!jobDescription && uplaodedFile.length === 0) {
+  const validateInputs = () => {
+    if (!jobDescription && uploadedFile.length === 0) {
       toast.error(
         "Please add a job description and upload at least one Document (PDF or DOCX)."
       );
-      return;
+      return false;
     }
-
+  
     if (!jobDescription) {
       toast.error("Please add a job description.");
-      return;
+      return false;
     }
-
-    if (uplaodedFile.length === 0) {
+  
+    if (uploadedFile.length === 0) {
       toast.error("Please upload at least one Document (PDF or DOCX).");
-      return;
+      return false;
     }
+  
+    return true;
   };
+  
+  const handleOptimizeWithAI = () => {
+    if (!validateInputs()) return;
+  
+    // API call or logic specific to "Optimize With AI"
+    console.log("Optimizing resume with AI...");
+  };
+  
   const handleResumeSuggestion = () => {
-    if (uplaodedFile.length === 0) {
-      toast.error("Please upload at least one Document (PDF or DOCX).");
-      return;
-    }
+    if (!validateInputs()) return;
+  
+    // API call or logic specific to "Resume Suggestion"
+    console.log("Fetching resume suggestions...");
   };
+  
   const handleATSScore = () => {
-    if (uplaodedFile.length === 0) {
-      toast.error("Please upload at least one Document (PDF or DOCX).");
-      return;
-    }
+    if (!validateInputs()) return;
+  
+    // API call or logic specific to "ATS Score"
+    console.log("Calculating ATS score...");
   };
+  
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -58,7 +69,7 @@ const JobApplicationForm = () => {
       "application/pdf": [".pdf"],
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
         [".docx"],
-        "text/plain": [".txt"],
+      "text/plain": [".txt"],
     },
     multiple: false,
     maxSize: 5 * 1024 * 1024,
@@ -106,7 +117,6 @@ const JobApplicationForm = () => {
             {...getRootProps()}
             sx={{
               p: 4,
-              mb: 2,
               border: "1px solid",
               borderRadius: 1,
               textAlign: "center",
@@ -134,24 +144,25 @@ const JobApplicationForm = () => {
                 <TbFileTypeTxt size={30} />
               </Stack>
               <Typography className="content" fontSize="small">
-                Supported formats: <strong>.docx</strong>, <strong>.pdf</strong> & <strong>.txt</strong>
+                Supported formats: <strong>.docx</strong>, <strong>.pdf</strong>{" "}
+                & <strong>.txt</strong>
               </Typography>
             </Stack>
           </Box>
 
-          {uplaodedFile?.length > 0 &&
-            uplaodedFile.map((file, index) => (
+          {uploadedFile?.length > 0 &&
+            uploadedFile.map((file, index) => (
               <Chip
                 key={index}
                 color="success"
-                sx={{ width: "fit-content", mb: 2 }}
+                sx={{ width: "fit-content", mt: 1 }}
                 size="small"
                 label={
                   <Stack direction="row" alignItems="center" spacing={2}>
                     {" "}
                     <Typography fontSize="small">{file?.name}</Typography>{" "}
                     <IoMdRemoveCircleOutline
-                      onClick={() => setuplaodedFile([])}
+                      onClick={() => setUploadedFile([])}
                       fontSize={16}
                       style={{ cursor: "pointer" }}
                     />{" "}
@@ -160,38 +171,6 @@ const JobApplicationForm = () => {
               />
             ))}
 
-          <Stack direction={{xs:'column', sm:'row'}} justifyContent="flex-end" spacing={1}>
-            <Button
-              variant="outlined"
-              size="small"
-              startIcon={<HiOutlineLightBulb />}
-              onClick={handleResumeSuggestion}
-            >
-              Review Resume Suggestions
-            </Button>
-            <Button
-              variant="contained"
-              size="small"
-              startIcon={<IoMdCheckmarkCircleOutline />}
-              onClick={handleATSScore}
-            >
-              Analyze ATS Compatibility
-            </Button>
-          </Stack>
-          <Stack
-            direction="row"
-            justifyContent="flex-start"
-            spacing={1}
-            sx={{ mt: 3 }}
-          >
-            <RiSparkling2Fill color="#FFEB3B" fontSize={20} />
-            <Typography className="content">
-              <strong>
-                {" "}
-                Want to Optimize Your Resume with AI (Job Description Based)?{" "}
-              </strong>
-            </Typography>
-          </Stack>
           <Typography
             className="content"
             sx={{ mt: 2, mb: 1 }}
@@ -216,14 +195,51 @@ const JobApplicationForm = () => {
               setJobDescription(value);
             }}
           />
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            justifyContent="flex-end"
+            spacing={1}
+            sx={{ mt: 2 }}
+          >
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<HiOutlineLightBulb />}
+              onClick={handleResumeSuggestion}
+            >
+              Review Resume/CV Suggestions
+            </Button>
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<IoMdCheckmarkCircleOutline />}
+              onClick={handleATSScore}
+            >
+              Analyze your ATS score
+            </Button>
+          </Stack>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            spacing={1}
+            sx={{ mt: 5 }}
+          >
+            <RiSparkling2Fill color="#FFEB3B" fontSize={20} />
+            <Typography className="content">
+              <strong>
+                {" "}
+                Want to Optimize Your Resume/CV with AI (Job Description Based)?{" "}
+              </strong>
+            </Typography>
+          </Stack>
           <Stack direction="row" justifyContent="center">
             <Button
               variant="contained"
               size="large"
               sx={{
-                mt: 3,
+                mt: 2,
                 p: 2,
-                width:{ xs:"100%", sm:'80%',md:"50%"},
+                width: { xs: "100%", sm: "80%", md: "50%" },
                 background:
                   "linear-gradient(to right, #0A01FF 0%, #CF4EB9 100%)",
               }}

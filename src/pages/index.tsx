@@ -36,7 +36,7 @@ const Home = () => {
       <Box sx={{mt:5}}>
         <JobApplicationForm />
       </Box>
-      <Box sx={{mt:20}}>
+      <Box sx={{mt:10}}>
         <Highlights />
       </Box>
     </Layout>
