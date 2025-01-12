@@ -17,6 +17,8 @@
     "@reduxjs/toolkit": "^2.5.0",
     "@tabler/icons-react": "^3.28.1",
     "@tinymce/tinymce-react": "^5.1.1",
+    "docxtemplater": "^3.57.2",
+    "jspdf": "^2.5.2",
     "next": "15.1.4",
     "react": "^18.3.1",
     "react-circular-progressbar": "^2.1.0",

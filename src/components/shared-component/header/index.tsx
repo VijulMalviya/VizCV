@@ -1,15 +1,22 @@
-import { Box, Button, Chip, Container, Stack, Typography } from "@mui/material";
-import React from "react";
+import { Box, Button, Chip, Container, Stack, Typography, useMediaQuery } from "@mui/material";
+import React, { useState } from "react";
 import ThemeToggleButton from "../ThemeToggleButton";
 import { TbFileTypeDocx } from "react-icons/tb";
 import { TbFileTypePdf } from "react-icons/tb";
 import { IoIosArrowBack } from "react-icons/io";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
+import { exportToDOCX, exportToPDF } from "@/utils";
 
 const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const [exportLoading, setExportLoading] = useState({
+    pdf: false,
+    docx: false,
+  });
+  const isMobile = useMediaQuery('(max-width:600px)');
+
   return (
     <Box
       sx={{
@@ -61,24 +68,28 @@ const Header = () => {
             </>
           )}
 
-          <Stack direction="row" spacing={2} justifyContent="flex-end">
-            {pathname == "/draft" && (
+          <Stack direction="row" spacing={1} justifyContent="flex-end">
+            {(pathname == "/draft" && !isMobile) && (
               <>
                 {" "}
                 <Button
                   variant="contained"
                   color="success"
                   startIcon={<TbFileTypePdf />}
+                  onClick={exportToPDF}
+                  disabled={exportLoading?.pdf}
                 >
-                  Download PDF
+                  {exportLoading?.pdf ? "Downloding,,," : "Download PDF"}
                 </Button>
                 <Button
                   variant="contained"
                   color="success"
                   sx={{ mt: 2 }}
                   startIcon={<TbFileTypeDocx />}
+                  onClick={exportToDOCX}
+                  disabled={exportLoading?.docx}
                 >
-                  Download DOCX
+                  {exportLoading?.docx ? "Downloding,,," : "Download DOCX"}
                 </Button>
               </>
             )}

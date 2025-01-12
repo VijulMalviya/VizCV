@@ -18,6 +18,10 @@
 .content {
     color: var(--contentColor);
 }
+.loader {
+    background: var(--background);
+}
+
 
 .uploadFilesContainer {
     border: 1px solid var(--formborder);

@@ -1,22 +1,26 @@
 import { Box, Button, Chip, Stack, TextField, Typography } from "@mui/material";
 import React, { useCallback, useState } from "react";
+import toast from "react-hot-toast";
 import { useDropzone } from "react-dropzone";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { TbFileTypeDocx } from "react-icons/tb";
 import { TbFileTypePdf } from "react-icons/tb";
 import { BsFillRocketTakeoffFill } from "react-icons/bs";
 import { IoMdRemoveCircleOutline } from "react-icons/io";
-import toast from "react-hot-toast";
 import { RiSparkling2Fill } from "react-icons/ri";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { TbFileTypeTxt } from "react-icons/tb";
 import { jobDescriptions } from "@/constant";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { addJobDescription, setCvBlob } from "@/redux/slice/resumeParseContentSlice";
+
 
 const JobApplicationForm = () => {
   const [uploadedFile, setUploadedFile] = useState<File[]>([]);
   const [jobDescription, setJobDescription] = useState<string | null>(null);
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setUploadedFile(acceptedFiles);
@@ -39,19 +43,22 @@ const JobApplicationForm = () => {
       toast.error("Please upload at least one Document (PDF, DOCX or Txt).");
       return false;
     }
-  
+   
     return true;
   };
   
   const handleOptimizeWithAI = () => {
     if (!validateInputs()) return;
-  
+    dispatch(addJobDescription(jobDescription));
+    dispatch(setCvBlob(uploadedFile));
     console.log("Optimizing resume with AI...");
+    router.push('/draft')
   };
   
   const handleATSScore = () => {
     if (!validateInputs()) return;
-    console.log("Calculating ATS score...");
+    dispatch(addJobDescription(jobDescription));
+    dispatch(setCvBlob(uploadedFile));
 
     router.push('/ats-and-feedback-result')
   };
