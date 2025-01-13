@@ -5,23 +5,26 @@ import { dummyResume } from "@/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { setCvContent } from "@/redux/slice/resumeParseContentSlice";
 
-const TinyMCEEditor = () => {
-  const [editorLoaded, setEditorLoaded] = useState(false);
 
-  const cvContent = useSelector(
-    (state: any) => state.resumeParseContent.cvContent
-  );
+
+const TinyMCEEditor: React.FC = () => {
+  const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
+
+  const cvContent = useSelector((state:any) => state.resumeParseContent.cvContent);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setEditorLoaded(true);
     }, 500);
+
+    return () => clearTimeout(timer); 
   }, []);
 
   return (
     <>
       <Box height="100%" sx={{ position: "relative" }}>
+        {/* Loader */}
         <Box
           className="loader"
           sx={{
@@ -40,14 +43,12 @@ const TinyMCEEditor = () => {
 
         <Editor
           id="tinymce-editor"
-          apiKey={process.env.NEXT_PUBLIC_TINYMCE_EDITOR_LICENSE_KEY}
-          onInit={(editor: any) => {
-            const initialEditorContent = editor.getContent({
-              format: "html",
-            });
+          apiKey={process.env.NEXT_PUBLIC_TINYMCE_EDITOR_LICENSE_KEY || ""}
+          onInit={(evt, editor) => {
+            const initialEditorContent = editor.getContent({ format: "html" });
             dispatch(setCvContent(initialEditorContent));
 
-            editor.on("blur", function () {
+            editor.on("blur", () => {
               const updatedContent = editor.getContent({ format: "html" });
               dispatch(setCvContent(updatedContent));
             });
