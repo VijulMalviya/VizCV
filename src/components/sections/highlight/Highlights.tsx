@@ -2,11 +2,13 @@ import { features } from "@/constant";
 import { Grid2, Stack, Typography } from "@mui/material";
 import React from "react";
 import HightLightCard from "./HightLightCard";
+import BackHeading from "@/components/shared-component/BackHeading";
 
 const Highlights = () => {
   return (
     <>
       <Stack direction="column" alignItems="center">
+       <BackHeading heading="Highlights" />
         <Typography variant="h5" color="inherit" textAlign="center">
           <strong> Hightlights </strong>
         </Typography>

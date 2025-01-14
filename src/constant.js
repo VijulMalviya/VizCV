@@ -216,3 +216,24 @@ export const dummyResume = ` <div style="font-family: 'Segoe UI', Tahoma, Geneva
               </ul>
             </div>
           </div>`;
+
+export const workflow = [
+  {
+    step: 1,
+    title: "Upload Resume and Job Description",
+    description:
+      "Easily upload your resume and the job description you're targeting. Drag and drop files or copy-paste content for quick and seamless input.",
+  },
+  {
+    step: 2,
+    title: "Analyze and Review Feedback with Report",
+    description:
+      "Get an in-depth ATS compatibility analysis with actionable insights. Review your personalized feedback and download a comprehensive report summarizing your resume’s strengths and areas for improvement.",
+  },
+  {
+    step: 3,
+    title: "Optimize with AI and Download as PDF and DOCX",
+    description:
+      "Enhance your resume effortlessly with AI-driven suggestions tailored to the job description. Download your optimized resume in DOCX or PDF formats, ready to make an impression.",
+  },
+];

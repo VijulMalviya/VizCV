@@ -1,6 +1,7 @@
 import JobApplicationForm from "@/components/forms/JobApplicationForm";
 import Layout from "@/components/layout";
 import Highlights from "@/components/sections/highlight/Highlights";
+import Workflow from "@/components/sections/workflow";
 import { Typography, Stack, Box } from "@mui/material";
 
 const Home = () => {
@@ -35,6 +36,9 @@ const Home = () => {
       </Stack>
       <Box sx={{mt:5}}>
         <JobApplicationForm />
+      </Box>
+      <Box sx={{mt:10}}>
+        <Workflow />
       </Box>
       <Box sx={{mt:10}}>
         <Highlights />
