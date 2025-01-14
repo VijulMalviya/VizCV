@@ -18,6 +18,7 @@
 .content {
     color: var(--contentColor);
 }
+
 .loader {
     background: var(--background);
 }
@@ -68,4 +69,17 @@
 
 .custom-textfield .MuiInputLabel-root.Mui-focused {
     color: var(--contentColor);
+}
+
+
+.scv-swiper .swiper-button-next,
+.scv-swiper .swiper-button-prev {
+    color: var(--contentColor);
+
+}
+
+.scv-swiper .swiper-button-next::after,
+.scv-swiper .swiper-button-prev::after {
+    font-size: 22px;
+
 }

@@ -1,6 +1,7 @@
 import JobApplicationForm from "@/components/forms/JobApplicationForm";
 import Layout from "@/components/layout";
 import Highlights from "@/components/sections/highlight/Highlights";
+import Testimonial from "@/components/sections/testimonial";
 import Workflow from "@/components/sections/workflow";
 import { Typography, Stack, Box } from "@mui/material";
 
@@ -42,6 +43,9 @@ const Home = () => {
       </Box>
       <Box sx={{mt:10}}>
         <Highlights />
+      </Box>
+      <Box sx={{mt:10}}>
+        <Testimonial />
       </Box>
     </Layout>
   );

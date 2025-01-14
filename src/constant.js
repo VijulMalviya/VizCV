@@ -237,3 +237,37 @@ export const workflow = [
       "Enhance your resume effortlessly with AI-driven suggestions tailored to the job description. Download your optimized resume in DOCX or PDF formats, ready to make an impression.",
   },
 ];
+
+
+export const testimonials = [
+  {
+    "name": "Priya Sharma",
+    "college": "Maulana Azad National Institute of Technology (MANIT), Bhopal",
+    "role": "Student",
+    "testimonial": "SnapCV completely transformed my resume with its AI-driven optimization. The ATS score analysis and personalized suggestions helped me create a professional resume that got shortlisted for multiple internships. It’s like having a personal career coach!"
+  },
+  {
+    "name": "Rajat Verma",
+    "college": "Indian Institute of Management (IIM), Indore",
+    "role": "Student",
+    "testimonial": "The AI-powered resume optimization on SnapCV is a game-changer. It analyzed my resume against job descriptions and provided actionable improvements. The ATS score feedback helped me stand out in competitive roles. Highly recommend it to all job seekers!"
+  },
+  {
+    "name": "Anjali Patel",
+    "college": "LNCT University, Bhopal",
+    "role": "Student",
+    "testimonial": "Thanks to SnapCV’s AI-based resume optimization, my resume now looks more polished and professional. The platform guided me through every step, making sure my application matched the job requirements perfectly. It’s so easy and effective!"
+  },
+  {
+    "name": "Sameer Khan",
+    "college": "Prestige Institute of Management and Research (PIMR), Indore",
+    "role": "Student",
+    "testimonial": "SnapCV’s AI resume optimization feature is simply brilliant. It highlighted exactly what I needed to change and suggested better phrasing and structure. With this tool, I secured interviews for two top companies during placements."
+  },
+  {
+    "name": "Neha Dubey",
+    "college": "Peoples University, Bhopal",
+    "role": "Student",
+    "testimonial": "SnapCV’s AI-driven suggestions improved my resume beyond my expectations. The optimization process was seamless, and the templates provided were professional and modern. This platform played a huge role in helping me get noticed by recruiters."
+  }
+]

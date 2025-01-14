@@ -11,7 +11,7 @@ const BackHeading:React.FC<{heading:string}> = ({ heading }) => {
           fontWeight: "bold",
           opacity: 0.1,
           textAlign: "center",
-          fontSize: { xs: "4rem", sm: "5rem" },
+          fontSize: { xs: "4rem", md: "5rem" },
           lineHeight: "4rem",
         }}
       >
