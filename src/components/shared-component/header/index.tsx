@@ -1,12 +1,21 @@
-import { Box, Button, Chip, Container, Stack, Typography, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  Container,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React, { useState } from "react";
 import ThemeToggleButton from "../ThemeToggleButton";
 import { TbFileTypeDocx } from "react-icons/tb";
 import { TbFileTypePdf } from "react-icons/tb";
 import { IoIosArrowBack } from "react-icons/io";
+import { FaRegFileAlt } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
-import { exportToDOCX, exportToPDF } from "@/utils";
+import { exportToDOCX, exportToPDF, downloadReport } from "@/utils";
 
 const Header = () => {
   const pathname = usePathname();
@@ -14,8 +23,9 @@ const Header = () => {
   const [exportLoading] = useState({
     pdf: false,
     docx: false,
+    report: false,
   });
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   return (
     <Box
@@ -37,7 +47,7 @@ const Header = () => {
             py: 2,
           }}
         >
-          {pathname == "/draft" ? (
+          {pathname == "/draft"  || pathname == "/ats-and-feedback-result" ? (
             <>
               <Chip
                 label={
@@ -69,12 +79,13 @@ const Header = () => {
           )}
 
           <Stack direction="row" spacing={1} justifyContent="flex-end">
-            {(pathname == "/draft" && !isMobile) && (
+            {pathname == "/draft" && !isMobile && (
               <>
                 {" "}
                 <Button
                   variant="contained"
                   color="success"
+                  sx={{ backgroundColor: "#4caf50" }}
                   startIcon={<TbFileTypePdf />}
                   onClick={exportToPDF}
                   disabled={exportLoading?.pdf}
@@ -84,12 +95,28 @@ const Header = () => {
                 <Button
                   variant="contained"
                   color="success"
-                  sx={{ mt: 2 }}
+                  sx={{ backgroundColor: "#4caf50" }}
                   startIcon={<TbFileTypeDocx />}
                   onClick={exportToDOCX}
                   disabled={exportLoading?.docx}
                 >
                   {exportLoading?.docx ? "Downloding,,," : "Download DOCX"}
+                </Button>
+              </>
+            )}
+
+            {pathname == "/ats-and-feedback-result" && (
+              <>
+                {" "}
+                <Button
+                  variant="contained"
+                  color="success"
+                  sx={{ backgroundColor: "#4caf50" }}
+                  startIcon={<FaRegFileAlt />}
+                  onClick={downloadReport}
+                  disabled={exportLoading?.report}
+                >
+                  {exportLoading?.pdf ? "Downloding,,," : "Download Report"}
                 </Button>
               </>
             )}

@@ -216,7 +216,7 @@ const JobApplicationForm = () => {
           >
             Job description Suggests  <i>(Click on title to import job description)</i>
           </Typography>
-          <Stack direction={{md:"row",xs:"column"}} spacing={{md:1,xs:0.5}}>
+          <Stack direction={{sm:"row",xs:"column"}} spacing={{md:1,xs:0.5}}>
 
           {jobDescriptions.map((job) => (
           <Chip

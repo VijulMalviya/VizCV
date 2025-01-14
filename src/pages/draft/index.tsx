@@ -9,7 +9,7 @@ const Draft = () => {
   return (
     <Layout>
       <Container maxWidth="lg">
-        <Box width="100%" height="80vh" mt={2}>
+        <Box width="100%" height="83vh" mt={2}>
           {!isMobile ? <TinyMCEEditor /> : <MobileEditor />}
         </Box>
       </Container>

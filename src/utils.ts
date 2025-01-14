@@ -5,3 +5,8 @@ export const exportToPDF = () => {
 export const exportToDOCX = () => {
   console.log("DownloadDOCX");
 };
+
+
+export const downloadReport = () => {
+  console.log("DownloadReport");
+};
