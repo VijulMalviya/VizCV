@@ -6,9 +6,9 @@ import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
 import { useEffect } from "react";
+import { UseScrollTop } from "@/hooks/ScrollToTop";
 
 const App = ({ Component, pageProps }: AppProps) => {
-
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", "dark");
   }, []);
@@ -30,6 +30,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <Provider store={store}>
+        <UseScrollTop />
         <Component {...pageProps} />
         <Toaster />
       </Provider>
