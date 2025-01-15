@@ -3,7 +3,6 @@ import { Stack, Typography, Box } from "@mui/material";
 import { GoDotFill } from "react-icons/go";
 import { FeedbackSectionProps } from "@/@types";
 
-
 const FeedbackSection: React.FC<FeedbackSectionProps> = ({ title, points }) => {
   return (
     <Stack direction="column" spacing={2} mt={4}>
