@@ -1,3 +1,4 @@
+'use client'
 import { Box, Button, Chip, Stack, TextField, Typography } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import toast from "react-hot-toast";
@@ -18,7 +19,7 @@ import {
   setCvBlob,
 } from "@/redux/slice/resumeParseContentSlice";
 import FullPageLoader from "../loader/FullPageLoader";
-import { useMutation } from "@tanstack/react-query/";
+import { useMutation } from "@tanstack/react-query";
 import { checkAtsAndReviewFeedback, optimizeResumewithAI } from "@/@api";
 import { validateInputs } from "@/utils";
 
