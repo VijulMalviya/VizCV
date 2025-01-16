@@ -18,62 +18,79 @@ import {
   setCvBlob,
 } from "@/redux/slice/resumeParseContentSlice";
 import FullPageLoader from "../loader/FullPageLoader";
+import { useMutation } from "@tanstack/react-query/";
+import { checkAtsAndReviewFeedback, optimizeResumewithAI } from "@/@api";
+import { validateInputs } from "@/utils";
 
 const JobApplicationForm = () => {
   const [uploadedFile, setUploadedFile] = useState<File[]>([]);
   const [jobDescription, setJobDescription] = useState<string | null>(null);
   const router = useRouter();
   const dispatch = useDispatch();
-  let onOptimizedResumesPending;
-  let isLoading ;
+  let isLoading;
+  let loadingMessage = "";
 
-  const loadingMessage = onOptimizedResumesPending
-    ? "Analysing your CV and Generating your AI-powered resume tailored to the job description..."
-    : "Analysing your CV for ATS compatibility and reviewing feedback...";
+  const onCheckAtsAndReviewFeedback = useMutation({
+    mutationFn: (payload: any) => checkAtsAndReviewFeedback({ payload }),
+    onMutate: () => {
+      loadingMessage =
+        "Analysing your CV for ATS compatibility and reviewing feedback...";
+    },
+    onSuccess: () => {
+      dispatch(addJobDescription(jobDescription));
+      dispatch(setCvBlob(uploadedFile));
+
+      router.push("/ats-and-feedback-result");
+    },
+    onError: (error: any) => {
+      const errorMessage =
+        error?.response?.data?.errors?.message ||
+        "An error occurred while checking ATS. Please try again.";
+      toast.error(errorMessage);
+    },
+  });
+
+  const handleATSScore = () => {
+    if (!validateInputs(jobDescription, uploadedFile)) return;
+    const payload = {
+      jobDescription,
+      cvBlob: uploadedFile[0],
+    };
+    onCheckAtsAndReviewFeedback.mutate(payload);
+  };
+
+  const onOptimizeResumewithAI = useMutation({
+    mutationFn: (payload: any) => optimizeResumewithAI({ payload }),
+    onMutate: () => {
+      loadingMessage =
+        "Analysing your CV and Generating your AI-powered resume tailored to the job description...";
+    },
+    onSuccess: () => {
+      dispatch(addJobDescription(jobDescription));
+      dispatch(setCvBlob(uploadedFile));
+
+      router.push("/draft");
+    },
+    onError: (error: any) => {
+      const errorMessage =
+        error?.response?.data?.errors?.message ||
+        "An error occurred while checking ATS. Please try again.";
+      toast.error(errorMessage);
+    },
+  });
+
+  const handleOptimizeWithAI = () => {
+    if (!validateInputs(jobDescription, uploadedFile)) return;
+    const payload = {
+      jobDescription,
+      cvBlob: uploadedFile[0],
+    };
+    onOptimizeResumewithAI.mutate(payload);
+  };
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setUploadedFile(acceptedFiles);
   }, []);
-
-  const validateInputs = () => {
-    if (!jobDescription && uploadedFile.length === 0) {
-      toast.error(
-        "Please add a job description and upload at least one Document (PDF, DOCX or Txt)."
-      );
-      return false;
-    }
-
-    if (!jobDescription) {
-      toast.error("Please add a job description.");
-      return false;
-    }
-
-    if (uploadedFile.length === 0) {
-      toast.error("Please upload at least one Document (PDF, DOCX or Txt).");
-      return false;
-    }
-
-    return true;
-  };
-
-  const handleOptimizeWithAI = () => {
-    if (!validateInputs()) return;
-    isLoading = true
-    onOptimizedResumesPending = true;
-    dispatch(addJobDescription(jobDescription));
-    dispatch(setCvBlob(uploadedFile));
-    console.log("Optimizing resume with AI...");
-    router.push("/draft");
-  };
-
-  const handleATSScore = () => {
-    if (!validateInputs()) return;
-    isLoading = true
-    dispatch(addJobDescription(jobDescription));
-    dispatch(setCvBlob(uploadedFile));
-
-    router.push("/ats-and-feedback-result");
-  };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -230,6 +247,7 @@ const JobApplicationForm = () => {
                 Job description Suggests{" "}
                 <i>(Click on title to import job description)</i>
               </Typography>
+
               <Stack
                 direction={{ sm: "row", xs: "column" }}
                 spacing={{ md: 1, xs: 0.5 }}
@@ -260,8 +278,11 @@ const JobApplicationForm = () => {
                 variant="contained"
                 startIcon={<IoMdCheckmarkCircleOutline />}
                 onClick={handleATSScore}
+                disabled={onCheckAtsAndReviewFeedback.isPending}
               >
-                Analyze ATS & Review Suggestions
+                {onCheckAtsAndReviewFeedback.isPending
+                  ? "Analyzing..."
+                  : "Analyze ATS & Review Suggestions"}
               </Button>
             </Stack>
             <Stack
@@ -291,7 +312,13 @@ const JobApplicationForm = () => {
                     "linear-gradient(to right, #0A01FF 0%, #CF4EB9 100%)",
                 }}
                 onClick={handleOptimizeWithAI}
+                disabled={onOptimizeResumewithAI.isPending}
               >
+                {onOptimizeResumewithAI.isPending
+                  ? "Optimizing..."
+                  : `Optimize with AI &nbsp; ${(
+                      <BsFillRocketTakeoffFill />
+                    )}`}{" "}
                 Optimize with AI &nbsp; <BsFillRocketTakeoffFill />
               </Button>
             </Stack>
