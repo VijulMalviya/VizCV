@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Box, Button, Chip, Stack, TextField, Typography } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import toast from "react-hot-toast";
@@ -47,16 +47,20 @@ const JobApplicationForm = () => {
       const errorMessage =
         error?.response?.data?.errors?.message ||
         "An error occurred while checking ATS. Please try again.";
-      toast.error(errorMessage);
+      toast.error(errorMessage, {
+        duration: 5000,
+        style: {
+          maxWidth:"600px"
+        },
+      });
     },
   });
 
   const handleATSScore = () => {
     if (!validateInputs(jobDescription, uploadedFile)) return;
-    const payload = {
-      jobDescription,
-      cvBlob: uploadedFile[0],
-    };
+    const payload = new FormData();
+    payload.append("jobDescription", jobDescription || '');
+    payload.append("cvBlob", uploadedFile[0]);
     onCheckAtsAndReviewFeedback.mutate(payload);
   };
 
@@ -76,16 +80,21 @@ const JobApplicationForm = () => {
       const errorMessage =
         error?.response?.data?.errors?.message ||
         "An error occurred while checking ATS. Please try again.";
-      toast.error(errorMessage);
+      toast.error(errorMessage,{
+        duration: 5000,
+        style: {
+          maxWidth:"600px"
+        },
+      });
     },
   });
 
   const handleOptimizeWithAI = () => {
     if (!validateInputs(jobDescription, uploadedFile)) return;
-    const payload = {
-      jobDescription,
-      cvBlob: uploadedFile[0],
-    };
+    const payload = new FormData();
+    payload.append("jobDescription", jobDescription || '');
+    payload.append("cvBlob", uploadedFile[0]);
+    
     onOptimizeResumewithAI.mutate(payload);
   };
 
@@ -107,15 +116,30 @@ const JobApplicationForm = () => {
       rejections.forEach((rejection) => {
         rejection.errors.forEach((error) => {
           if (error.code === "too-many-files") {
-            toast.error("You can upload only one file at a time.");
+            toast.error("You can upload only one file at a time.",{
+              duration: 5000,
+              style: {
+                maxWidth:"600px"
+              },
+            });
           }
           if (error.code === "file-invalid-type") {
             toast.error(
-              "Unsupported file format. Please upload a PDF or DOCX file."
+              "Unsupported file format. Please upload a PDF or DOCX file.",{
+                duration: 5000,
+                style: {
+                  maxWidth:"600px"
+                },
+              }
             );
           }
           if (error.code === "file-too-large") {
-            toast.error("File size exceeds the 5MB limit.");
+            toast.error("File size exceeds the 5MB limit.",{
+              duration: 5000,
+              style: {
+                maxWidth:"600px"
+              },
+            });
           }
         });
       });
@@ -235,7 +259,7 @@ const JobApplicationForm = () => {
               multiline
               variant="outlined"
               fullWidth
-              rows={4}
+              minRows={4}
               className="custom-textfield content"
               value={jobDescription}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -296,8 +320,7 @@ const JobApplicationForm = () => {
               <Typography className="content">
                 <strong>
                   {" "}
-                  Want to Optimize Your Resume/CV with AI (Job Description
-                  Based)?{" "}
+                  Get AI-Optimized Resumes Tailored to Your Job Description!{" "}
                 </strong>
               </Typography>
             </Stack>
@@ -315,12 +338,13 @@ const JobApplicationForm = () => {
                 onClick={handleOptimizeWithAI}
                 disabled={onOptimizeResumewithAI.isPending}
               >
-                {onOptimizeResumewithAI.isPending
-                  ? "Optimizing..."
-                  : `Optimize with AI &nbsp; ${(
-                      <BsFillRocketTakeoffFill />
-                    )}`}{" "}
-                Optimize with AI &nbsp; <BsFillRocketTakeoffFill />
+                {onOptimizeResumewithAI.isPending ? (
+                  "Optimizing..."
+                ) : (
+                  <>
+                    Optimize with AI &nbsp; <BsFillRocketTakeoffFill />
+                  </>
+                )}
               </Button>
             </Stack>
           </Stack>
