@@ -26,7 +26,7 @@ const JobApplicationForm = () => {
   const [jobDescription, setJobDescription] = useState<string | null>(null);
   const router = useRouter();
   const dispatch = useDispatch();
-  let isLoading;
+
   let loadingMessage = "";
 
   const onCheckAtsAndReviewFeedback = useMutation({
@@ -38,7 +38,6 @@ const JobApplicationForm = () => {
     onSuccess: (response) => {
       dispatch(setATSCheckerData(response?.data?.data));
       router.push(`/ats-and-feedback-result?key=${response.data.data?.id}`);
-      
     },
     onError: (error: any) => {
       const errorMessage =
@@ -56,8 +55,8 @@ const JobApplicationForm = () => {
   const handleATSScore = () => {
     if (!validateInputs(jobDescription, uploadedFile)) return;
     const payload = new FormData();
-    payload.append("jobDescription", jobDescription || "");
-    payload.append("cvBlob", uploadedFile[0]);
+    payload.append("job_description", jobDescription || "");
+    payload.append("file", uploadedFile[0]);
     onCheckAtsAndReviewFeedback.mutate(payload);
   };
 
@@ -68,7 +67,7 @@ const JobApplicationForm = () => {
         "Analysing your CV and Generating your AI-powered resume tailored to the job description...";
     },
     onSuccess: (response) => {
-      dispatch(setResumeParseData(response?.data?.data)) ;
+      dispatch(setResumeParseData(response?.data?.data));
       router.push(`/draft?key=${response.data.data?.id}`);
     },
     onError: (error: any) => {
@@ -87,8 +86,8 @@ const JobApplicationForm = () => {
   const handleOptimizeWithAI = () => {
     if (!validateInputs(jobDescription, uploadedFile)) return;
     const payload = new FormData();
-    payload.append("jobDescription", jobDescription || "");
-    payload.append("cvBlob", uploadedFile[0]);
+    payload.append("job_description", jobDescription || "");
+    payload.append("file", uploadedFile[0]);
 
     onOptimizeResumewithAI.mutate(payload);
   };
@@ -161,7 +160,9 @@ const JobApplicationForm = () => {
           <Stack
             direction="column"
             justifyContent="center"
-            className={`formContainer ${!isLoading && "content"}`}
+            className={`formContainer ${
+              !onCheckAtsAndReviewFeedback?.isPending && "content"
+            }`}
             sx={{
               borderRadius: 2,
               p: 2,
@@ -169,7 +170,9 @@ const JobApplicationForm = () => {
               position: "relative",
             }}
           >
-            {isLoading && <FullPageLoader loadingMessage={loadingMessage} />}
+            {onCheckAtsAndReviewFeedback?.isPending && (
+              <FullPageLoader loadingMessage={loadingMessage} />
+            )}
             <Typography
               className="content"
               sx={{ mb: 1 }}
@@ -299,7 +302,11 @@ const JobApplicationForm = () => {
                 variant="contained"
                 startIcon={<IoMdCheckmarkCircleOutline />}
                 onClick={handleATSScore}
-                disabled={onCheckAtsAndReviewFeedback.isPending}
+                sx={{
+                  cursor: onCheckAtsAndReviewFeedback?.isPending
+                    ? "not-allowed"
+                    : "pointer",
+                }}
               >
                 {onCheckAtsAndReviewFeedback.isPending
                   ? "Analyzing..."
