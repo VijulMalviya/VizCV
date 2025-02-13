@@ -109,7 +109,7 @@ const ATSAndFeedbackResult = () => {
                 variant="contained"
                 color="success"
                 sx={{ mt: 2 }}
-                startIcon={<CloudUpload />} // Optional: Adds an upload icon
+                startIcon={<CloudUpload />} 
                 onClick={() => router.push("/")}
               >
                 Check ATS & Review Suggestions
