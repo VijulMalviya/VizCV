@@ -1,29 +1,23 @@
-import { dummyResume } from '@/constant';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  cvContent: dummyResume || '',
-  cvBlob: null,
-  jobDescription: ''
+  resumeParseData : [] as any,
 };
 
 const resumeParseContentSlice = createSlice({
   name: 'resumeParseContent',
   initialState,
   reducers: {
-    setCvContent: (state, action) => {
-      state.cvContent = action.payload;
+    setResumeParseData: (state, action) => {
+      state.resumeParseData = [...state.resumeParseData, action.payload]; 
     },
-    setCvBlob: (state, action) => {
-      state.cvBlob = action.payload;
+    clearResumeParseData: (state) => {
+      state.resumeParseData = []; 
     },
-    addJobDescription: (state, action) => {
-      state.jobDescription = action.payload;
-    }
   }
 });
 
 
-export const { setCvContent, setCvBlob, addJobDescription } = resumeParseContentSlice.actions;
+export const { setResumeParseData, clearResumeParseData } = resumeParseContentSlice.actions;
 
 export default resumeParseContentSlice.reducer;

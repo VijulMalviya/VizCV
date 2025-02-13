@@ -14,14 +14,12 @@ import { TbFileTypeTxt } from "react-icons/tb";
 import { jobDescriptions } from "@/constant";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import {
-  addJobDescription,
-  setCvBlob,
-} from "@/redux/slice/resumeParseContentSlice";
 import FullPageLoader from "../loader/FullPageLoader";
 import { useMutation } from "@tanstack/react-query";
 import { checkAtsAndReviewFeedback, optimizeResumewithAI } from "@/@api";
 import { validateInputs } from "@/utils";
+import { setATSCheckerData } from "@/redux/slice/atsCheckerDataSlice";
+import { setResumeParseData } from "@/redux/slice/resumeParseContentSlice";
 
 const JobApplicationForm = () => {
   const [uploadedFile, setUploadedFile] = useState<File[]>([]);
@@ -37,11 +35,9 @@ const JobApplicationForm = () => {
       loadingMessage =
         "Analysing your CV for ATS compatibility and reviewing feedback...";
     },
-    onSuccess: () => {
-      dispatch(addJobDescription(jobDescription));
-      dispatch(setCvBlob(uploadedFile));
-
-      router.push("/ats-and-feedback-result");
+    onSuccess: (response) => {
+      setATSCheckerData(response?.data?.data);
+      router.push(`/ats-and-feedback-result?key=${response.data.data?.id}`);
     },
     onError: (error: any) => {
       const errorMessage =
@@ -50,7 +46,7 @@ const JobApplicationForm = () => {
       toast.error(errorMessage, {
         duration: 5000,
         style: {
-          maxWidth:"600px"
+          maxWidth: "600px",
         },
       });
     },
@@ -59,7 +55,7 @@ const JobApplicationForm = () => {
   const handleATSScore = () => {
     if (!validateInputs(jobDescription, uploadedFile)) return;
     const payload = new FormData();
-    payload.append("jobDescription", jobDescription || '');
+    payload.append("jobDescription", jobDescription || "");
     payload.append("cvBlob", uploadedFile[0]);
     onCheckAtsAndReviewFeedback.mutate(payload);
   };
@@ -70,20 +66,19 @@ const JobApplicationForm = () => {
       loadingMessage =
         "Analysing your CV and Generating your AI-powered resume tailored to the job description...";
     },
-    onSuccess: () => {
-      dispatch(addJobDescription(jobDescription));
-      dispatch(setCvBlob(uploadedFile));
+    onSuccess: (response) => {
+      setResumeParseData(response?.data?.data);
 
-      router.push("/draft");
+      router.push(`/draft?key=${response.data.data?.id}`);
     },
     onError: (error: any) => {
       const errorMessage =
         error?.response?.data?.errors?.message ||
         "An error occurred while checking ATS. Please try again.";
-      toast.error(errorMessage,{
+      toast.error(errorMessage, {
         duration: 5000,
         style: {
-          maxWidth:"600px"
+          maxWidth: "600px",
         },
       });
     },
@@ -92,9 +87,9 @@ const JobApplicationForm = () => {
   const handleOptimizeWithAI = () => {
     if (!validateInputs(jobDescription, uploadedFile)) return;
     const payload = new FormData();
-    payload.append("jobDescription", jobDescription || '');
+    payload.append("jobDescription", jobDescription || "");
     payload.append("cvBlob", uploadedFile[0]);
-    
+
     onOptimizeResumewithAI.mutate(payload);
   };
 
@@ -116,28 +111,29 @@ const JobApplicationForm = () => {
       rejections.forEach((rejection) => {
         rejection.errors.forEach((error) => {
           if (error.code === "too-many-files") {
-            toast.error("You can upload only one file at a time.",{
+            toast.error("You can upload only one file at a time.", {
               duration: 5000,
               style: {
-                maxWidth:"600px"
+                maxWidth: "600px",
               },
             });
           }
           if (error.code === "file-invalid-type") {
             toast.error(
-              "Unsupported file format. Please upload a PDF or DOCX file.",{
+              "Unsupported file format. Please upload a PDF or DOCX file.",
+              {
                 duration: 5000,
                 style: {
-                  maxWidth:"600px"
+                  maxWidth: "600px",
                 },
               }
             );
           }
           if (error.code === "file-too-large") {
-            toast.error("File size exceeds the 5MB limit.",{
+            toast.error("File size exceeds the 5MB limit.", {
               duration: 5000,
               style: {
-                maxWidth:"600px"
+                maxWidth: "600px",
               },
             });
           }
