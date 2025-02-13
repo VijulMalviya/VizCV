@@ -3,9 +3,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { dummyResume } from "@/constant";
 import { useDispatch, useSelector } from "react-redux";
-import { setCvContent } from "@/redux/slice/resumeParseContentSlice";
-
-
+import { setResumeParseData } from "@/redux/slice/resumeParseContentSlice";
 
 const TinyMCEEditor: React.FC = () => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
@@ -46,11 +44,11 @@ const TinyMCEEditor: React.FC = () => {
           apiKey={process.env.NEXT_PUBLIC_TINYMCE_EDITOR_LICENSE_KEY || ""}
           onInit={(evt, editor) => {
             const initialEditorContent = editor.getContent({ format: "html" });
-            dispatch(setCvContent(initialEditorContent));
+            dispatch(setResumeParseData(initialEditorContent));
 
             editor.on("blur", () => {
               const updatedContent = editor.getContent({ format: "html" });
-              dispatch(setCvContent(updatedContent));
+              dispatch(setResumeParseData(updatedContent));
             });
           }}
           init={{

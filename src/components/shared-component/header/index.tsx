@@ -7,7 +7,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import ThemeToggleButton from "../ThemeToggleButton";
 import { TbFileTypeDocx } from "react-icons/tb";
 import { TbFileTypePdf } from "react-icons/tb";
@@ -21,10 +21,6 @@ import { HeaderProps } from "@/@types";
 const Header: React.FC<HeaderProps> = ({ isKeyDataExist }) => {
   const pathname = usePathname();
   const router = useRouter();
-
-  const handleRedirect = useCallback(() => {
-    router.replace("/");
-  }, [router]);
 
   const [exportLoading] = useState({
     pdf: false,

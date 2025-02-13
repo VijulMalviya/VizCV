@@ -36,7 +36,7 @@ const JobApplicationForm = () => {
         "Analysing your CV for ATS compatibility and reviewing feedback...";
     },
     onSuccess: (response) => {
-      setATSCheckerData(response?.data?.data);
+      dispatch(setATSCheckerData(response?.data?.data));
       router.push(`/ats-and-feedback-result?key=${response.data.data?.id}`);
       
     },
@@ -68,7 +68,7 @@ const JobApplicationForm = () => {
         "Analysing your CV and Generating your AI-powered resume tailored to the job description...";
     },
     onSuccess: (response) => {
-      setResumeParseData(response?.data?.data);
+      dispatch(setResumeParseData(response?.data?.data)) ;
       router.push(`/draft?key=${response.data.data?.id}`);
     },
     onError: (error: any) => {
