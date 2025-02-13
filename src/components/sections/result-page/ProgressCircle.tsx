@@ -4,10 +4,11 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 const ProgressCircle: React.FC<ATSScoreProps> = ({ ATSScore }) => {
-  const getColor = (ATSScore: number) => {
-    if (ATSScore <= 40) {
+
+  const getColor = (score: number) => {
+    if (score <= 40) {
       return "#ff4d4d";
-    } else if (ATSScore <= 75) {
+    } else if (score >= 75) {
       return "#ff8c00";
     } else {
       return "#4db8ff";

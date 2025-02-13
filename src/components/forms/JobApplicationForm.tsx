@@ -37,7 +37,8 @@ const JobApplicationForm = () => {
     },
     onSuccess: (response) => {
       setATSCheckerData(response?.data?.data);
-      router.push(`/ats-and-feedback-result?key=${response.data.data?.id}`);
+      // router.push(`/ats-and-feedback-result?key=${response.data.data?.id}`);
+      router.push(`/ats-and-feedback-result?key=123456`);
     },
     onError: (error: any) => {
       const errorMessage =
