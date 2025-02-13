@@ -4,7 +4,7 @@ import Header from "../shared-component/header";
 import Footer from "../shared-component/footer";
 import { usePathname } from "next/navigation";
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children, isKeyDataExist }) => {
   const pathname = usePathname();
   return (
     <Box
@@ -15,7 +15,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         pt: 10,
       }}
     >
-      <Header />
+      <Header isKeyDataExist={isKeyDataExist} />
       <Container component="main" sx={{ flex: 1 }}>
         {children}
       </Container>

@@ -2,6 +2,10 @@ import { ReactNode } from "react";
 
 export interface LayoutProps {
   children: ReactNode;
+  isKeyDataExist?: boolean;
+}
+export interface HeaderProps {
+  isKeyDataExist?: boolean;
 }
 
 export interface RootState {
