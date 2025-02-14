@@ -21,7 +21,7 @@ const ATSAndFeedbackResult = () => {
     (state: any) => state.atsChecker.ATSCheckerData
   );
 
-  const isKeyDataExist = ATSCheckerData?.find((data: any) => data.id === key);
+  const isKeyDataExist = ATSCheckerData?.find((data: any) => data?.id === key);
 
   const {
     ats_score,

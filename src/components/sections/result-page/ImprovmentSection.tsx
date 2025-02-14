@@ -20,11 +20,13 @@ const ImprovementSection: React.FC<ImprovementSectionProps> = ({
             <Stack
               key={index}
               direction="row"
-              spacing={1}
+              spacing={2}
               mt={index === 0 ? 0 : 1}
               alignItems="flex-start"
             >
-              <GoDotFill style={{ marginTop: 4 }} color={color} />
+              <Box sx={{ width: "5px", height: "5px", borderRadius: "50%" }}>
+              <GoDotFill style={{ marginTop: 4 }} fontSize={14} color={color} />
+              </Box>
               <Typography fontSize="small" color={color} sx={{ my: 1 }}>
                 {point?.description}
               </Typography>

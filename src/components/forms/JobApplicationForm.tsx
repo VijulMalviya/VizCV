@@ -16,13 +16,14 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import FullPageLoader from "../loader/FullPageLoader";
 import { useMutation } from "@tanstack/react-query";
-import { checkAtsAndReviewFeedback, optimizeResumewithAI } from "@/@api";
+import { checkAtsAndReviewFeedback, optimizeResumewithAI } from "../../api-data";
 import { validateInputs } from "@/utils";
 import { setATSCheckerData } from "@/redux/slice/atsCheckerDataSlice";
 import { setResumeParseData } from "@/redux/slice/resumeParseContentSlice";
 
 const JobApplicationForm = () => {
   const [uploadedFile, setUploadedFile] = useState<File[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [jobDescription, setJobDescription] = useState<string | null>(null);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -32,14 +33,16 @@ const JobApplicationForm = () => {
   const onCheckAtsAndReviewFeedback = useMutation({
     mutationFn: (payload: any) => checkAtsAndReviewFeedback({ payload }),
     onMutate: () => {
+      setIsLoading(true);
       loadingMessage =
         "Analysing your CV for ATS compatibility and reviewing feedback...";
     },
     onSuccess: (response) => {
-      dispatch(setATSCheckerData(response?.data?.data));
-      router.push(`/ats-and-feedback-result?key=${response.data.data?.id}`);
+      dispatch(setATSCheckerData(response?.data));
+      router.push(`/ats-and-feedback-result?key=${response.data?.id}`);
     },
     onError: (error: any) => {
+      setIsLoading(false);
       const errorMessage =
         error?.response?.data?.errors?.message ||
         "An error occurred while checking ATS. Please try again.";
@@ -63,6 +66,7 @@ const JobApplicationForm = () => {
   const onOptimizeResumewithAI = useMutation({
     mutationFn: (payload: any) => optimizeResumewithAI({ payload }),
     onMutate: () => {
+      setIsLoading(true);
       loadingMessage =
         "Analysing your CV and Generating your AI-powered resume tailored to the job description...";
     },
@@ -71,6 +75,7 @@ const JobApplicationForm = () => {
       router.push(`/draft?key=${response.data.data?.id}`);
     },
     onError: (error: any) => {
+      setIsLoading(false);
       const errorMessage =
         error?.response?.data?.errors?.message ||
         "An error occurred while checking ATS. Please try again.";
@@ -161,7 +166,7 @@ const JobApplicationForm = () => {
             direction="column"
             justifyContent="center"
             className={`formContainer ${
-              !onCheckAtsAndReviewFeedback?.isPending && "content"
+              !isLoading && "content"
             }`}
             sx={{
               borderRadius: 2,
@@ -170,7 +175,7 @@ const JobApplicationForm = () => {
               position: "relative",
             }}
           >
-            {onCheckAtsAndReviewFeedback?.isPending && (
+            {isLoading && (
               <FullPageLoader loadingMessage={loadingMessage} />
             )}
             <Typography
@@ -303,12 +308,13 @@ const JobApplicationForm = () => {
                 startIcon={<IoMdCheckmarkCircleOutline />}
                 onClick={handleATSScore}
                 sx={{
-                  cursor: onCheckAtsAndReviewFeedback?.isPending
+                  cursor: isLoading
                     ? "not-allowed"
                     : "pointer",
                 }}
+                disabled={isLoading}
               >
-                {onCheckAtsAndReviewFeedback.isPending
+                {isLoading
                   ? "Analyzing..."
                   : "Analyze ATS & Review Suggestions"}
               </Button>
@@ -339,9 +345,9 @@ const JobApplicationForm = () => {
                     "linear-gradient(to right, #0A01FF 0%, #CF4EB9 100%)",
                 }}
                 onClick={handleOptimizeWithAI}
-                disabled={onOptimizeResumewithAI.isPending}
+                disabled={isLoading}
               >
-                {onOptimizeResumewithAI.isPending ? (
+                {isLoading ? (
                   "Optimizing..."
                 ) : (
                   <>
